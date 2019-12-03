@@ -1,1 +1,2 @@
-# js30-05-flex-panels-img-gallery
+# JavaScript30 #5: Flex Panels Image Gallery
+
