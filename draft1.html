@@ -33,15 +33,15 @@
 
     .panel {
       align-items: center;
+      /* Safari transitionend event.propertyName === flex */
+      /* Chrome + FF transitionend event.propertyName === flex-grow */
       background: #6B0F9C;
       background-position: center;
       background-size: cover;
       box-shadow: inset 0 0 0 5px rgba(255,255,255,0.1);
-      color: #fff;
+      color: white;
       display: flex;
       flex: 1; /* Evenly distribute space among each panel */
-      /* Safari transitionend event.propertyName === flex */
-      /* Chrome + FF transitionend event.propertyName === flex-grow */
       flex-direction: column;
       font-size: 20px;
       justify-content: center;
@@ -134,32 +134,26 @@
 
   <script>
 
-    const panelClicker = {
-      // Select each panel:
-      panels: document.querySelectorAll('.panel'),
-      // Toggle "open" class when panel is clicked:
-      toggleOpen: (e) => {
-        e.target.classList.toggle('open');
-        console.log(e.target);
-        // Debug event bubbling:
-        // https://www.sitepoint.com/event-bubbling-javascript/
-      },
-      // After "open" panel transition ends, transition smaller text up or down:
-      toggleActive: function(e) {
-        // Check if clicked element includes 'flex' (Safari plus other browsers):
-        if(e.propertyName.includes('flex')) {
-          this.classList.toggle('open-active');
-        }
-      },
-      init: function() {
-        // Listen for clicks on each panel and toggle "open" class:
-        panelClicker.panels.forEach(panel => panel.addEventListener('click', panelClicker.toggleOpen));
-        // Listen for transitionend on each panel and toggle top and bottom text in and out:
-        panelClicker.panels.forEach(panel => panel.addEventListener('transitionend', panelClicker.toggleActive));
+    // Select each panel:
+    const panels = document.querySelectorAll('.panel');
+
+    // Toggle "open" class when panel is clicked:
+    function toggleOpen() {
+      this.classList.toggle('open');
+    }
+
+    // After "open" panel transition ends, transition smaller text up or down:
+    function toggleActive(e) {
+      // Check if clicked element includes 'flex' (Safari plus other browsers):
+      if(e.propertyName.includes('flex')) {
+        this.classList.toggle('open-active');
       }
     }
 
-    panelClicker.init();
+    // Listen for clicks on each panel and toggle "open" class:
+    panels.forEach(panel => panel.addEventListener('click', toggleOpen));
+    // Listen for transitionend on each panel and toggle top and bottom text in and out:
+    panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
 
   </script>
 
