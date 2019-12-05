@@ -138,14 +138,14 @@
       // Select each panel:
       panels: document.querySelectorAll('.panel'),
       // Toggle "open" class when panel is clicked:
-      toggleOpen: function() {
-        this.classList.toggle('open');
+      toggleOpen: (e) => {
+        e.currentTarget.classList.toggle('open');
       },
       // After "open" panel transition ends, transition smaller text up or down:
-      toggleActive: function(e) {
+      toggleActive: (e) => {
         // Check if clicked element includes 'flex' (Safari plus other browsers):
         if(e.propertyName.includes('flex')) {
-          this.classList.toggle('open-active');
+          e.currentTarget.classList.toggle('open-active');
         }
       },
       init: function() {
